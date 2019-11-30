@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="http://localhost:9098/socket.io/socket.io.js"></script>
+<body>
+    <input id='inp' placeholder="请输入文字"/>
+    <button id='btn'>发送</button>
+
+    <ul id='list'>
+
+    </ul>
+</body>
+<script>
+    const connect = io.connect('http://localhost:9098')
+    console.log(connect)
+
+    let lis=''
+
+    btn.onclick=()=>{
+        connect.emit('send',inp.value)
+    }
+
+    connect.on('msg',(msg)=>{
+        console.log(msg)
+    })
+
+    connect.on('input',(val)=>{
+        console.log(val,'val&&&&&&&7&777')
+        lis += `<li>${val}</li>`
+        list.innerHTML = lis
+    })
+</script>
+</html>
